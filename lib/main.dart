@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:signal_generator/views/data.dart';
 import 'package:signal_generator/views/home.dart';
-import 'package:signal_generator/views/pico.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const PicoView(),
+      home: const PicoData(),
     );
   }
 }
