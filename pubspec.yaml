@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_blue_plus: ^1.16.2
   permission_handler: ^11.0.0
+  sleek_circular_slider: ^2.0.1
 
 dev_dependencies:
   flutter_test:
