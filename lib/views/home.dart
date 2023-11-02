@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:signal_generator/services/bluetooth.dart';
+import 'package:signal_generator/views/data.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -37,31 +38,40 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Signal Generator Interface'),
       ),
-      body: StreamBuilder(
-          stream: FlutterBluePlus.scanResults,
-          builder:
-              (BuildContext context, AsyncSnapshot<List<ScanResult>> snapshot) {
-            if (snapshot.hasData) {
-              return Column(
-                children: [
-                  for (ScanResult result in snapshot.data!)
-                    ListTile(
-                      leading: const Icon(Icons.bluetooth),
-                      title: Text(result.device.platformName == ''
-                          ? 'Unknown'
-                          : result.device.platformName),
-                      subtitle: Text(result.device.remoteId.toString()),
-                      trailing: Text(result.rssi.toString()),
-                      onTap: () async {
-                        await blue.connect(result.device.remoteId);
-                      },
-                    ),
-                ],
-              );
-            } else {
-              return const CircularProgressIndicator();
-            }
-          }),
+      body: SingleChildScrollView(
+        child: StreamBuilder(
+            stream: FlutterBluePlus.scanResults,
+            builder: (BuildContext context,
+                AsyncSnapshot<List<ScanResult>> snapshot) {
+              if (snapshot.hasData) {
+                return Column(
+                  children: [
+                    for (ScanResult result in snapshot.data!)
+                      ListTile(
+                        leading: const Icon(Icons.bluetooth),
+                        title: Text(result.device.platformName == ''
+                            ? 'Unknown'
+                            : result.device.platformName),
+                        subtitle: Text(result.device.remoteId.toString()),
+                        trailing: Text(result.rssi.toString()),
+                        onTap: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PicoData(
+                                remoteID: result.device.remoteId,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                  ],
+                );
+              } else {
+                return const CircularProgressIndicator();
+              }
+            }),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (int index) async {
           switch (index) {

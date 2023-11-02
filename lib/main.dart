@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:signal_generator/views/data.dart';
 import 'package:signal_generator/views/home.dart';
 
 void main() {
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const PicoData(),
+      home: const MyHomePage(),
     );
   }
 }
