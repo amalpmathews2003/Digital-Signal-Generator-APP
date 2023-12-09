@@ -13,9 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Digital Signal Generator',
       darkTheme: ThemeData.dark(),
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
+      theme: ThemeData(useMaterial3: true),
       home: const MyHomePage(),
     );
   }

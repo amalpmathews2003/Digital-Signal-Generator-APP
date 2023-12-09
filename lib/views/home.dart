@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:signal_generator/services/bluetooth.dart';
 import 'package:signal_generator/views/data.dart';
@@ -72,39 +73,35 @@ class _MyHomePageState extends State<MyHomePage> {
               }
             }),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (int index) async {
-          switch (index) {
-            case 0:
-              await blue.send();
-              break;
-            case 1:
-              await blue.disconnect();
-              break;
-            case 2:
-              break;
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.stop),
-            label: 'Stop',
+      bottomNavigationBar: const Padding(
+        padding: EdgeInsets.all(15.0),
+        child: SizedBox(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Made with',
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(width: 5),
+              Icon(
+                Icons.favorite,
+                color: Colors.red,
+              ),
+              SizedBox(width: 5),
+              Text(
+                'by AAAA',
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.cancel),
-            label: 'Disconnect',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: scan,
         child: scanning
             ? const CircularProgressIndicator()
-            : const Icon(Icons.bluetooth),
+            : const Icon(Icons.refresh),
       ),
     );
   }
